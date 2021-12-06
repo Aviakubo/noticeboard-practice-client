@@ -21,11 +21,28 @@ function App() {
     getNotices();
   }, []);
 
+  async function handleAdd(formInputs) {
+    try {
+      const notices = await fetch('http://localhost:3000/notices', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'Application/json'
+        },
+        body: JSON.stringify(formInputs)
+      }).then(res => res.json())
+
+      setNoticesState({ notices });
+
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className="App">
       <div className='container'>
         <Header />
-        <Aside />
+        <Aside handleAdd={handleAdd}/>
         <Main notices={noticesState.notices} />
         <Nav />
         <Footer />
