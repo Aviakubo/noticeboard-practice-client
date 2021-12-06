@@ -1,9 +1,9 @@
 import Notices from './Notices.js';
 
-function Main({ notices, handleDelete }) {
+function Main({ notices, handleDelete, handleUpdate }) {
     return (
       <main>
-        <Notices notices={notices} handleDelete={handleDelete} />
+        <Notices notices={notices} handleDelete={handleDelete} handleUpdate={handleUpdate} />
       </main>
     );
 }

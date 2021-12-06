@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Input from './Input.js';
 
 function Form(props) {
@@ -7,6 +7,18 @@ function Form(props) {
       author:'',
       phone:''
     });
+
+    useEffect(() => {
+      if(props.notice) {
+        const { title, author, phone, id } = props.notice;
+        setFormState({
+          title,
+          author,
+          phone,
+          id
+        })
+      }
+    }, [props.notice]);
 
   function handleChange(event) {
     setFormState(prevState => ({
@@ -17,7 +29,13 @@ function Form(props) {
 
   function handleSubmit(event){
     event.preventDefault();
-    props.handleAdd(formState);
+    if (props.notice) {
+      props.handleUpdate(formState);
+      props.toggleForm();
+    } else {
+      props.handleSubmit(formState);
+    }
+    // props.handleAdd(formState);
   }
     return (
       <form onSubmit={handleSubmit}>
@@ -45,7 +63,7 @@ function Form(props) {
           value={formState.phone}
           id="phone"
        />
-       <input type="submit" value="add a notice"/>
+       <input type="submit" value={props.notice ? "update this notice" : "add a notice"}/>
       </form>
     );
   }

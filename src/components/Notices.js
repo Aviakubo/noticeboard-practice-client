@@ -1,13 +1,13 @@
 import Notice from './Notice.js';
 
-function Notices({ notices, handleDelete }) {
+function Notices({ notices, handleDelete, handleUpdate }) {
     return (
       <div>
         {notices.map(notice => 
           <Notice 
             key={notice.id} 
             notice={notice}
-            handleDelete={handleDelete}
+            handleDelete={handleDelete} handleUpdate={handleUpdate}
           />
         )}
       </div>

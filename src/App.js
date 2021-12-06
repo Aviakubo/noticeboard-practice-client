@@ -51,12 +51,28 @@ function App() {
     }
   }
 
+  async function handleUpdate(formInputs, noticeId) {
+    try {
+      const { title, author, phone, id } = formInputs;
+      const notices = await fetch(`http://localhost:3000/notices/${noticeId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'Application/json'
+        },
+        body: JSON.stringify({ title, author, phone }),
+      }).then(res => res.json())
+      setNoticesState({ notices })
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className="App">
       <div className='container'>
         <Header />
         <Aside handleAdd={handleAdd}/>
-        <Main notices={noticesState.notices} handleDelete={handleDelete} />
+        <Main notices={noticesState.notices} handleDelete={handleDelete} handleUpdate={handleUpdate} />
         <Nav />
         <Footer />
       </div>
