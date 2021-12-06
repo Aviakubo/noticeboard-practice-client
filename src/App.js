@@ -38,12 +38,25 @@ function App() {
     }
   }
 
+  async function handleDelete(noticeId) {
+    try {
+      const notices = await fetch(`http://localhost:3000/notices/${noticeId}`, {
+        method: 'DELETE',
+      }).then(res => res.json())
+
+      setNoticesState({ notices });
+
+    }catch(error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className="App">
       <div className='container'>
         <Header />
         <Aside handleAdd={handleAdd}/>
-        <Main notices={noticesState.notices} />
+        <Main notices={noticesState.notices} handleDelete={handleDelete} />
         <Nav />
         <Footer />
       </div>
