@@ -12,11 +12,13 @@ function App() {
     async function getNotices() {
       try {
         const notices = await fetch('http://localhost:3000/notices').then(response => response.json())
+        setNoticesState({ notices })
         console.log(notices)
       } catch (error) {
         console.log(error)
       }
     }
+    getNotices();
   }, []);
 
   return (
